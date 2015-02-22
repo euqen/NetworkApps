@@ -31,15 +31,28 @@ namespace ConsoleApplication1
             IPEndPoint ClientNode = new IPEndPoint(IPAddress.Broadcast, CLIENT_PORT);
             EndPoint RemoteNode = (EndPoint)ClientNode;
             Console.WriteLine("Begin sending current date...");
-             while (true) {
+            try
+            {
+                while (true)
+                {
 
-                DateTime date = DateTime.Now;
-                data = Encoding.ASCII.GetBytes(date.ToString());
-             
-                Broadcast.SendTo(data, data.Length, SocketFlags.None, RemoteNode);
-                Thread.Sleep(1000);
+                    DateTime date = DateTime.Now;
+                    data = Encoding.ASCII.GetBytes(date.ToString());
+
+                    Broadcast.SendTo(data, data.Length, SocketFlags.None, RemoteNode);
+                    Thread.Sleep(1000);
+                }
             }
-            
+            catch (Exception e)
+            {
+                Console.WriteLine("Ooops! Something wrong!");
+                Console.ReadLine();
+            }
+            finally
+            {
+                Broadcast.Shutdown(SocketShutdown.Both);
+                Broadcast.Close();
+            }
         }
         
     }

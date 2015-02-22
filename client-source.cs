@@ -29,22 +29,36 @@ namespace front_end
 
             IPEndPoint ServerNode = new IPEndPoint(IPAddress.Any, SERVER_PORT);
             EndPoint RemoteNode = (EndPoint)ServerNode;
+
             Console.WriteLine("Server started successfully.");
             Console.WriteLine("Begin receiving current time....");
             Thread.Sleep(3000);
 
-            while (true)
+            try
             {
-                data = new byte[1024];
-                int count;
-                Console.WriteLine("Server is unavalible");
-                count =  Receive.ReceiveFrom(data, ref RemoteNode);
-                
-                Console.WriteLine(data.ToString());
-                string message = Encoding.ASCII.GetString(data);
-                Console.Clear();
-                Console.WriteLine(message);
-                Thread.Sleep(1000);
+                while (true)
+                {
+                    data = new byte[1024];
+                    int count;
+                    Console.WriteLine("Server is unavalible");
+                    count = Receive.ReceiveFrom(data, ref RemoteNode);
+
+                    Console.WriteLine(data.ToString());
+                    string message = Encoding.ASCII.GetString(data);
+                    Console.Clear();
+                    Console.WriteLine(message);
+                    Thread.Sleep(1000);
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Ooops! Something wrong!");
+                Console.Read();
+            }
+            finally 
+            {
+                Receive.Shutdown(SocketShutdown.Both);
+                Receive.Close();
             }
         }
     }
