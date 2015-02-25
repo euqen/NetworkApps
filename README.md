@@ -18,3 +18,4 @@ If server will try to send data to broadcasting IP, all clients which listening 
 NOTE: UDP protocol do not guarantee the fact, that the data will be delivered to client.
 
 
+Bug reports: There is one bug, when client can't receive data from server. It's maybe connected with busy port, but anyway...
