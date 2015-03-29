@@ -27,3 +27,5 @@ computers after creating network between them. This network does not require the
 it's only necessary for LAN. The internet can also be connected, this WAN doesn't have any influences 
 on the application. 
 
+#### How it works
+Client and server application creates their own sockets. Socket binding to the local node and server begins listen all input connections using method listen(10), where 10 means queue of input queries. When client connecting to the server using method connect(remoteNode), server understands it and receive client's IP Adress and Post. Then current date encoding and encoded data sends out to remote node, where this data decoding back and displaying to the user console. After that server closing connection and begin listen other queries if they already have.
